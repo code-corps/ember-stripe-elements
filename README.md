@@ -1,34 +1,50 @@
-# ember-stripe-elements
+<p align="center">
+  <img src="/docs/img/ember-stripe-elements.png" />
+  <br />
+  <img src="/docs/img/demo.gif" />
+</p>
 
-![Demo of Stripe Elements](/demo.gif)
+---
 
-A simple Ember wrapper for Stripe Elements.
+[![Build Status](https://travis-ci.org/code-corps/ember-stripe-elements.svg?branch=develop)](https://travis-ci.org/code-corps/ember-stripe-elements)
+
+<h1>ember-stripe-elements</h1>
+
+A simple Ember wrapper for [Stripe Elements](https://stripe.com/docs/elements).
 
 ## Installation
 
-* `git clone <repository-url>` this repository
-* `cd ember-stripe-elements`
-* `npm install`
-* `bower install`
+```sh
+$ ember install ember-stripe-elements
+```
 
-## Running
+## Contributing
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
+Fork this repo, make a new branch, and send a pull request. Please add tests in order to have your change merged.
 
-## Running Tests
+### Installation
 
-* `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)
-* `ember test`
-* `ember test --server`
+```sh
+git clone git@github.com:code-corps/ember-stripe-elements.git
+cd ember-stripe-elements
+npm install
+```
 
-## Building
+### Running
 
-* `ember build`
+```sh
+ember serve
+```
 
-For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).
+Visit your app at [http://localhost:4200](http://localhost:4200).
 
-## Testing autofill in browsers
+### Running Tests
+
+```sh
+ember test
+```
+
+#### Testing autofill in browsers
 
 We've added some self-signed certs in `/ssl` that will allow you to test autofill inside of the dummy app (or serve as a blueprint for doing this yourself in your own app).
 
@@ -38,3 +54,11 @@ To run using the self-signed certificate, you must:
 - Run the app with `ember serve --ssl`
 - Add the certificate to your keychain and trust it for SSL
 - Visit the app at [https://localhost.ssl:4200](https://localhost.ssl:4200).
+
+### Building
+
+```sh
+ember build
+```
+
+For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).

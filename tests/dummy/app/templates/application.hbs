@@ -1,6 +1,55 @@
-{{ember-stripe-elements
-  blur="onBlur"
-  change="onChange"
-  focus="onFocus"
-  options=options
-}}
+<p>
+  Advanced usage of <code>\{{stripe-card}}</code> with a block and options
+</p>
+
+<div class="input-group">
+  {{#stripe-card options=cardOptions as |stripeElement error|}}
+    {{#if error}}
+      <p class="error">{{error.message}}</p>
+    {{/if}}
+    <button {{action "submit" stripeElement}}>Submit</button>
+    {{#if token}}
+      <p>Your token: <code>{{token.id}}</code></p>
+    {{/if}}
+  {{/stripe-card}}
+</div>
+
+<p>
+  <code>\{{stripe-card}}</code>
+</p>
+
+<div class="input-group">
+  {{stripe-card}}
+</div>
+
+<p>
+  <code>\{{stripe-card-number}}</code>
+</p>
+
+<div class="input-group">
+  {{stripe-card-number options=options}}
+</div>
+
+<p>
+  <code>\{{stripe-card-expiry}}</code>
+</p>
+
+<div class="input-group">
+  {{stripe-card-expiry options=options}}
+</div>
+
+<p>
+  <code>\{{stripe-card-cvc}}</code>
+</p>
+
+<div class="input-group">
+  {{stripe-card-cvc options=options}}
+</div>
+
+<p>
+  <code>\{{stripe-postal-code}}</code>
+</p>
+
+<div class="input-group">
+  {{stripe-postal-code options=options}}
+</div>

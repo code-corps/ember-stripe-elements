@@ -1,24 +1,35 @@
+/* global Stripe */
 import Ember from 'ember';
 import { initialize } from 'dummy/initializers/ember-stripe-elements';
 import { module, test } from 'qunit';
 import destroyApp from '../../helpers/destroy-app';
+import sinon from 'sinon';
+
+const { Application, run } = Ember;
+
+var container, application;
 
 module('Unit | Initializer | ember stripe elements', {
   beforeEach() {
-    Ember.run(() => {
-      this.application = Ember.Application.create();
-      this.application.deferReadiness();
+    run(() => {
+      application = Application.create();
+      container = application.__container__;
+      application.deferReadiness();
     });
   },
   afterEach() {
-    destroyApp(this.application);
+    destroyApp(application);
   }
 });
 
-// Replace this with your real tests.
-test('it works', function(assert) {
-  initialize(this.application);
+test('it sets stripe key', function(assert) {
+  assert.expect(1);
 
-  // you would normally confirm the results of the initializer here
-  assert.ok(true);
+  const StripeStub = sinon.spy(() => {
+    return sinon.createStubInstance(Stripe);
+  });
+
+  initialize(container, application);
+
+  assert.ok(StripeStub.calledWithNew);
 });
