@@ -1,6 +1,8 @@
 # ember-stripe-elements
 
-This README outlines the details of collaborating on this Ember addon.
+![Demo of Stripe Elements](/demo.gif)
+
+A simple Ember wrapper for Stripe Elements.
 
 ## Installation
 
