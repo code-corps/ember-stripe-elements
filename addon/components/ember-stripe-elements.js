@@ -16,7 +16,7 @@ export default Ember.Component.extend({
     this._super(...arguments);
     let elements = get(this, 'stripe.elements')();
     let card = elements.create('card');
-    card.mount(this.element);
+    card.mount(this.element.querySelector('[role="mount-point"]'));
     set(this, 'card', card);
   }
 });

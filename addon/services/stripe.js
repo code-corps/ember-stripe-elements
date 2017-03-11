@@ -1,13 +1,16 @@
+/* global Stripe */
 import Ember from 'ember';
-// import config from '../../config/environment';
 
 const {
+  get,
+  Service,
   setProperties
 } = Ember;
 
-export default Ember.Service.extend({
+export default Service.extend({
   init() {
-    let { elements, createToken } = Stripe('pk_test_uulykWQvn6axvKzslwN8lqby');
+    const config = get(this, 'config');
+    let { elements, createToken } = new Stripe(config.stripe.publishableKey);
     setProperties(this, { elements, createToken });
   }
 });
