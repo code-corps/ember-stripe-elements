@@ -1,18 +1,18 @@
 import Ember from 'ember';
-import layout from '../templates/components/ember-stripe-elements';
 
 const {
+  Component,
   get,
   inject: { service },
   set
 } = Ember;
 
-export default Ember.Component.extend({
-  layout,
-
-  events: ['blur', 'change', 'focus'],
+export default Component.extend({
+  classNames: ['ember-stripe-element'],
+  error: null,
   options: [],
   stripeElement: null,
+  type: null, // Set in components that extend from `stripe-element`
 
   stripe: service(),
 
@@ -24,8 +24,11 @@ export default Ember.Component.extend({
     // Fetch user options
     let options = get(this, 'options');
 
+    // Fetch `type` set by child component
+    let type = get(this, 'type');
+
     // `stripeElement` instead of `element` to distinguish from `this.element`
-    let stripeElement = elements.create('card', options);
+    let stripeElement = elements.create(type, options);
 
     // Mount the Stripe Element onto the mount point
     stripeElement.mount(this.element.querySelector('[role="mount-point"]'));
@@ -49,10 +52,12 @@ export default Ember.Component.extend({
 
   setEventListeners() {
     let stripeElement = get(this, 'stripeElement');
-    get(this, 'events').forEach(eventName => {
-      stripeElement.on(eventName, (...args) => {
-        this.sendAction(eventName, ...args);
-      });
+    stripeElement.on('blur',    () => this.sendAction('blur'));
+    stripeElement.on('focus',   () => this.sendAction('focus'));
+    stripeElement.on('change',  (...args) => {
+      let { error } = args[0];
+      set(this, 'error', error);
+      this.sendAction('change', ...args);
     });
   }
 });

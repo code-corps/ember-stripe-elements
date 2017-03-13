@@ -1,1 +1,0 @@
-export { default } from 'ember-stripe-elements/components/ember-stripe-elements';

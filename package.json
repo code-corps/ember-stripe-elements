@@ -1,17 +1,19 @@
 {
   "name": "ember-stripe-elements",
-  "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "0.1.0-alpha.1",
+  "description": "A simple Ember wrapper for Stripe Elements.",
   "keywords": [
-    "ember-addon"
+    "credit card",
+    "ember-addon",
+    "stripe"
   ],
   "license": "MIT",
-  "author": "",
+  "author": "Josh Smith",
   "directories": {
     "doc": "doc",
     "test": "tests"
   },
-  "repository": "",
+  "repository": "https://github.com/code-corps/ember-stripe-elements",
   "scripts": {
     "build": "ember build",
     "start": "ember server",
@@ -40,6 +42,8 @@
     "ember-export-application-global": "^1.0.5",
     "ember-load-initializers": "^0.5.1",
     "ember-resolver": "^2.0.3",
+    "ember-sinon": "0.2.1",
+    "ember-sinon-qunit": "1.4.1",
     "loader.js": "^4.0.10"
   },
   "engines": {
