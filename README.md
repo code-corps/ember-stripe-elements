@@ -43,9 +43,7 @@ ENV.stripe = {
 
 ### Basics
 
-Every component extends a `StripeElement` component which are not exposed.
-
-Each component will:
+Every component will:
 
 - Accept the same array of [`options`](https://stripe.com/docs/elements/reference#element-options) accepted by Stripe Elements
 - Call `update` on the Stripe `element` if the `options` are updated
@@ -57,7 +55,9 @@ Each component will:
 - Have a CSS class for the specific element that matches the component's name, e.g. `{{ember-stripe-card}}` has the class `.ember-stripe-card`
 - Yield to a block
 
-#### Actions
+> Every component extends from a `StripeElement` base component which is not exposed to your application.
+
+### Actions
 
 The components bubble up all of [the JavaScript events that can be handled by the Stripe Element in `element.on()`](https://stripe.com/docs/elements/reference#element-on) from the Ember component using the following actions:
 
@@ -71,7 +71,7 @@ You could handle these actions yourself, for example:
 {{stripe-card blur="onBlur"}}
 ```
 
-#### Component types
+### Component types
 
 This addon gives you components that match the different [Element types](https://stripe.com/docs/elements/reference#element-types):
 
@@ -81,7 +81,7 @@ This addon gives you components that match the different [Element types](https:/
 - `{{stripe-card-cvc}}` - `cardCvc` The card's CVC number.
 - `{{stripe-postal-code}}` - `postalCode` the ZIP/postal code.
 
-#### Block usage with `options`
+### Block usage with `options`
 
 In addition to the simple usage above, like `{{stripe-card}}`, you can also yield to a block, which will yield both an `error` object and [the `stripeElement` itself](https://stripe.com/docs/elements/reference#the-element).
 
@@ -132,7 +132,7 @@ export default Controller.extend({
 
 Note the naming convention `stripeElement` instead of `element`, as this could conflict with usage of `element` in an Ember component.
 
-#### Styling
+### Styling
 
 Note that you can use CSS to style some aspects of the components, but keep in mind that [the `styles` object of the `options` takes precedence](https://stripe.com/docs/elements/reference#element-options).
 
