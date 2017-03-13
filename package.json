@@ -1,11 +1,13 @@
 {
   "name": "ember-stripe-elements",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-beta.1",
   "description": "A simple Ember wrapper for Stripe Elements.",
   "keywords": [
     "credit card",
     "ember-addon",
-    "stripe"
+    "stripe",
+    "stripe element",
+    "stripe elements"
   ],
   "license": "MIT",
   "author": "Josh Smith",
