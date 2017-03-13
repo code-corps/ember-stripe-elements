@@ -1,12 +1,12 @@
 <p align="center">
-  <img src="/docs/img/ember-stripe-elements.png" />
+  <img src="https://github.com/code-corps/ember-stripe-elements/blob/master/docs/img/ember-stripe-elements.png" />
   <br />
-  <img src="/docs/img/demo.gif" />
+  <img src="https://github.com/code-corps/ember-stripe-elements/blob/master/docs/img/demo.gif" />
 </p>
 
 ---
 
-[![Build Status](https://travis-ci.org/code-corps/ember-stripe-elements.svg?branch=develop)](https://travis-ci.org/code-corps/ember-stripe-elements)
+[![Build Status](https://travis-ci.org/code-corps/ember-stripe-elements.svg?branch=master)](https://travis-ci.org/code-corps/ember-stripe-elements)
 
 <h1>ember-stripe-elements</h1>
 
