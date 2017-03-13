@@ -14,7 +14,7 @@ A simple Ember wrapper for [Stripe Elements](https://stripe.com/docs/elements).
 
 ## Features
 
-- We inject `<script src="https://js.stripe.com/v3/"></script>` into your application's `<head>` tag
+- Inject `<script src="https://js.stripe.com/v3/"></script>` into your application's `<head>` tag
 - Initialize `Stripe` with your publishable key
 - Inject a `stripe` service into your controllers so you can use:
   - [`stripe.createToken(element[, options])`](https://stripe.com/docs/elements/reference#stripe-create-token)
@@ -43,11 +43,11 @@ ENV.stripe = {
 
 ### Basics
 
-Every component extends a `StripeElement` component which we do not expose.
+Every component extends a `StripeElement` component which are not exposed.
 
 Each component will:
 
-- Accept an array of `options`
+- Accept the same array of [`options`](https://stripe.com/docs/elements/reference#element-options) accepted by Stripe Elements
 - Call `update` on the Stripe `element` if the `options` are updated
 - Bubble the proper JavaScript events into actions
 - Mount Stripe's own `StripeElement` in a `<div role="mount-point">` on `didInsertElement`
@@ -59,7 +59,7 @@ Each component will:
 
 #### Actions
 
-We bubble up all of [the JavaScript events that can be handled by the Stripe Element in `element.on()`](https://stripe.com/docs/elements/reference#element-on) from the Ember component using the following actions:
+The components bubble up all of [the JavaScript events that can be handled by the Stripe Element in `element.on()`](https://stripe.com/docs/elements/reference#element-on) from the Ember component using the following actions:
 
 - `blur`
 - `change` (also sets/unsets the `error` property on the component, which can be yielded with the block)
@@ -73,7 +73,7 @@ You could handle these actions yourself, for example:
 
 #### Component types
 
-We expose components that match the different [Element types](https://stripe.com/docs/elements/reference#element-types):
+This addon gives you components that match the different [Element types](https://stripe.com/docs/elements/reference#element-types):
 
 - `{{stripe-card}}` - `card` (recommended) A flexible single-line input that collects all necessary card details.
 - `{{stripe-card-number}}` - `cardNumber` The card number.
@@ -99,7 +99,7 @@ For example, you can choose to render out the `error`, as below (runnable in our
 {{/stripe-card}}
 ```
 
-Also notice that we have a `submit` action which uses the `stripeElement`; we could define this in our controller like so:
+Also notice the `submit` action which passes the `stripeElement`; you could define this in your controller like so:
 
 ```js
 import Ember from 'ember';
@@ -130,7 +130,7 @@ export default Controller.extend({
 });
 ```
 
-Note that we use the naming convention `stripeElement` instead of `element`, as this could conflict with usage of `element` in an Ember component.
+Note the naming convention `stripeElement` instead of `element`, as this could conflict with usage of `element` in an Ember component.
 
 #### Styling
 
@@ -164,7 +164,7 @@ ember test
 
 #### Testing autofill in browsers
 
-We've added some self-signed certs in `/ssl` that will allow you to test autofill inside of the dummy app (or serve as a blueprint for doing this yourself in your own app).
+There are self-signed certs in `/ssl` that will allow you to test autofill inside of the dummy app (or serve as a blueprint for doing this yourself in your own app).
 
 To run using the self-signed certificate, you must:
 
