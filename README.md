@@ -12,11 +12,129 @@
 
 A simple Ember wrapper for [Stripe Elements](https://stripe.com/docs/elements).
 
+## Features
+
+- We inject `<script src="https://js.stripe.com/v3/"></script>` into your application's `<head>` tag
+- Initialize `Stripe` with your publishable key
+- Inject a `stripe` service into your controllers so you can use:
+  - [`stripe.createToken(element[, options])`](https://stripe.com/docs/elements/reference#stripe-create-token)
+  - [`stripe.elements([options])`](https://stripe.com/docs/elements/reference#stripe-elements), if for some reason you need to
+- Simple, configurable Ember components like `{{stripe-card}}` (demoed in the gif above)
+
 ## Installation
 
 ```sh
 $ ember install ember-stripe-elements
 ```
+
+## Configuration
+
+### Stripe Publishable Key
+
+You must set your [publishable key](https://support.stripe.com/questions/where-do-i-find-my-api-keys) in `config/environment.js`.
+
+```js
+ENV.stripe = {
+  publishableKey: 'pk_thisIsATestKey'
+};
+```
+
+## Components
+
+### Basics
+
+Every component extends a `StripeElement` component which we do not expose.
+
+Each component will:
+
+- Accept an array of `options`
+- Call `update` on the Stripe `element` if the `options` are updated
+- Bubble the proper JavaScript events into actions
+- Mount Stripe's own `StripeElement` in a `<div role="mount-point">` on `didInsertElement`
+- Unmount on `willDestroyElement`
+- Provide access to the `stripe` service
+- Have the base CSS class name `.ember-stripe-element`
+- Have a CSS class for the specific element that matches the component's name, e.g. `{{ember-stripe-card}}` has the class `.ember-stripe-card`
+- Yield to a block
+
+#### Actions
+
+We bubble up all of [the JavaScript events that can be handled by the Stripe Element in `element.on()`](https://stripe.com/docs/elements/reference#element-on) from the Ember component using the following actions:
+
+- `blur`
+- `change` (also sets/unsets the `error` property on the component, which can be yielded with the block)
+- `focus`
+
+You could handle these actions yourself, for example:
+
+```hbs
+{{stripe-card blur="onBlur"}}
+```
+
+#### Component types
+
+We expose components that match the different [Element types](https://stripe.com/docs/elements/reference#element-types):
+
+- `{{stripe-card}}` - `card` (recommended) A flexible single-line input that collects all necessary card details.
+- `{{stripe-card-number}}` - `cardNumber` The card number.
+- `{{stripe-card-expiry}}` - `cardExpiry` The card's expiration date.
+- `{{stripe-card-cvc}}` - `cardCvc` The card's CVC number.
+- `{{stripe-postal-code}}` - `postalCode` the ZIP/postal code.
+
+#### Block usage with `options`
+
+In addition to the simple usage above, like `{{stripe-card}}`, you can also yield to a block, which will yield both an `error` object and [the `stripeElement` itself](https://stripe.com/docs/elements/reference#the-element).
+
+For example, you can choose to render out the `error`, as below (runnable in our dummy app).
+
+```hbs
+{{#stripe-card options=options as |stripeElement error|}}
+  {{#if error}}
+    <p class="error">{{error.message}}</p>
+  {{/if}}
+  <button {{action "submit" stripeElement}}>Submit</button>
+  {{#if token}}
+    <p>Your token: <code>{{token.id}}</code></p>
+  {{/if}}
+{{/stripe-card}}
+```
+
+Also notice that we have a `submit` action which uses the `stripeElement`; we could define this in our controller like so:
+
+```js
+import Ember from 'ember';
+const { Controller, get, inject: { service }, set } = Ember;
+
+export default Controller.extend({
+  stripe: service(),
+
+  options: {
+    hidePostalCode: true,
+    style: {
+      base: {
+        color: '#333'
+      }
+    }
+  },
+
+  token: null,
+
+  actions: {
+    submit(stripeElement) {
+      let stripe = get(this, 'stripe');
+      stripe.createToken(stripeElement).then(({token}) => {
+        set(this, 'token', token);
+      });
+    }
+  }
+});
+```
+
+Note that we use the naming convention `stripeElement` instead of `element`, as this could conflict with usage of `element` in an Ember component.
+
+#### Styling
+
+Note that you can use CSS to style some aspects of the components, but keep in mind that [the `styles` object of the `options` takes precedence](https://stripe.com/docs/elements/reference#element-options).
 
 ## Contributing
 
@@ -62,3 +180,7 @@ ember build
 ```
 
 For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).
+
+## Contributors
+
+Thanks to @begedin, @snewcomer, @filipecrosk, and @Kilowhisky for your early help on this!
