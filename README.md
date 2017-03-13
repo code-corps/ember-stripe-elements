@@ -1,7 +1,7 @@
 <p align="center">
-  <img src="https://github.com/code-corps/ember-stripe-elements/blob/master/docs/img/ember-stripe-elements.png" />
+  <img src="https://github.com/code-corps/ember-stripe-elements/raw/master/docs/img/ember-stripe-elements.png" />
   <br />
-  <img src="https://github.com/code-corps/ember-stripe-elements/blob/master/docs/img/demo.gif" />
+  <img src="https://github.com/code-corps/ember-stripe-elements/raw/master/docs/img/demo.gif" />
 </p>
 
 ---
