@@ -1,6 +1,6 @@
 import { moduleFor, test } from 'ember-qunit';
 
-moduleFor('service:stripe', 'Unit | Service | stripe', {
+moduleFor('service:stripev3', 'Unit | Service | stripev3', {
   integration: true
 });
 
