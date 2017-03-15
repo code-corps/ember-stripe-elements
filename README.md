@@ -21,7 +21,7 @@ A simple Ember wrapper for [Stripe Elements](https://stripe.com/docs/elements).
 
 - Inject `<script src="https://js.stripe.com/v3/"></script>` into your application's `<head>` tag
 - Initialize `Stripe` with your publishable key
-- Inject a `stripe` service into your controllers so you can use:
+- Inject a `stripev3` service into your controllers so you can use:
   - [`stripe.createToken(element[, options])`](https://stripe.com/docs/elements/reference#stripe-create-token)
   - [`stripe.elements([options])`](https://stripe.com/docs/elements/reference#stripe-elements), if for some reason you need to
 - Simple, configurable Ember components like `{{stripe-card}}` (demoed in the gif above)
@@ -55,7 +55,7 @@ Every component will:
 - Bubble the proper JavaScript events into actions
 - Mount Stripe's own `StripeElement` in a `<div role="mount-point">` on `didInsertElement`
 - Unmount on `willDestroyElement`
-- Provide access to the `stripe` service
+- Provide access to the `stripev3` service
 - Have the base CSS class name `.ember-stripe-element`
 - Have a CSS class for the specific element that matches the component's name, e.g. `{{ember-stripe-card}}` has the class `.ember-stripe-card`
 - Yield to a block
@@ -111,7 +111,7 @@ import Ember from 'ember';
 const { Controller, get, inject: { service }, set } = Ember;
 
 export default Controller.extend({
-  stripe: service(),
+  stripev3: service(),
 
   options: {
     hidePostalCode: true,
@@ -126,7 +126,7 @@ export default Controller.extend({
 
   actions: {
     submit(stripeElement) {
-      let stripe = get(this, 'stripe');
+      let stripe = get(this, 'stripev3');
       stripe.createToken(stripeElement).then(({token}) => {
         set(this, 'token', token);
       });

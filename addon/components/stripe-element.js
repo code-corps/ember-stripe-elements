@@ -14,12 +14,12 @@ export default Component.extend({
   stripeElement: null,
   type: null, // Set in components that extend from `stripe-element`
 
-  stripe: service(),
+  stripev3: service(),
 
   didInsertElement() {
     this._super(...arguments);
 
-    let elements = get(this, 'stripe.elements')();
+    let elements = get(this, 'stripev3.elements')();
 
     // Fetch user options
     let options = get(this, 'options');

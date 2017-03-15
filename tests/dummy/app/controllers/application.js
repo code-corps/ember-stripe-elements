@@ -26,7 +26,7 @@ let style = {
 };
 
 export default Controller.extend({
-  stripe: service(),
+  stripev3: service(),
 
   token: null,
 
@@ -40,7 +40,7 @@ export default Controller.extend({
   },
   actions: {
     submit(stripeElement) {
-      let stripe = get(this, 'stripe');
+      let stripe = get(this, 'stripev3');
       stripe.createToken(stripeElement).then(({token}) => {
         set(this, 'token', token);
       });
