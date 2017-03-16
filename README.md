@@ -59,6 +59,7 @@ Every component will:
 - Have the base CSS class name `.ember-stripe-element`
 - Have a CSS class for the specific element that matches the component's name, e.g. `{{ember-stripe-card}}` has the class `.ember-stripe-card`
 - Yield to a block
+- Accept `autofocus=true` passed directly in the component, e.g. `{{stripe-card autofocus=true}}`
 
 > Every component extends from a `StripeElement` base component which is not exposed to your application.
 
