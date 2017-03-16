@@ -9,6 +9,8 @@ const {
 
 export default Component.extend({
   classNames: ['ember-stripe-element'],
+
+  autofocus: false,
   error: null,
   options: [],
   stripeElement: null,
@@ -38,6 +40,18 @@ export default Component.extend({
 
     // Set the event listeners
     this.setEventListeners();
+  },
+
+  didRender() {
+    this._super(...arguments);
+    // Fetch autofocus, set by user
+    let autofocus = get(this, 'autofocus');
+    let stripeElement = get(this, 'stripeElement');
+    if (autofocus) {
+      this.$('iframe')[0].onload = () => {
+        stripeElement.focus();
+      };
+    }
   },
 
   didUpdateAttrs() {

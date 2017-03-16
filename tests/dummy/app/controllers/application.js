@@ -38,6 +38,7 @@ export default Controller.extend({
   options: {
     style
   },
+  
   actions: {
     submit(stripeElement) {
       let stripe = get(this, 'stripev3');

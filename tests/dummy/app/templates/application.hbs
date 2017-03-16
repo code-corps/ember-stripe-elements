@@ -3,7 +3,7 @@
 </p>
 
 <div class="input-group">
-  {{#stripe-card options=cardOptions as |stripeElement error|}}
+  {{#stripe-card autofocus=true options=cardOptions as |stripeElement error|}}
     {{#if error}}
       <p class="error">{{error.message}}</p>
     {{/if}}
