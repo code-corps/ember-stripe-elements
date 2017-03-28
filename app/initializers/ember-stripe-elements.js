@@ -1,3 +1,4 @@
+import EmberError from '@ember/error';
 import config from '../config/environment';
 
 export function initialize() {
@@ -6,7 +7,7 @@ export function initialize() {
   application.register('config:ember-stripe-elements', config, { instantiate: false });
 
   if (!config.stripe && !config.stripe.publishableKey) {
-    throw new Ember.Error('StripeService: Missing Stripe key, please set `ENV.stripe.publishableKey` in config.environment.js');
+    throw new EmberError('StripeService: Missing Stripe key, please set `ENV.stripe.publishableKey` in config.environment.js');
   }
 }
 
