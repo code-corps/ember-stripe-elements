@@ -4,7 +4,8 @@ const {
   Component,
   get,
   inject: { service },
-  set
+  set,
+  run
 } = Ember;
 
 export default Component.extend({
@@ -20,7 +21,10 @@ export default Component.extend({
 
   didInsertElement() {
     this._super(...arguments);
+    run.schedule('afterRender', this, this._createStripeElement);
+  },
 
+  _createStripeElement() {
     let elements = get(this, 'stripev3.elements')();
 
     // Fetch user options
