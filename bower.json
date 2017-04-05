@@ -1,6 +1,5 @@
 {
   "name": "ember-stripe-elements",
   "dependencies": {
-    "sinonjs": "^1.17.1"
   }
 }
