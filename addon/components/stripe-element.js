@@ -75,6 +75,8 @@ export default Component.extend({
 
       if (complete === true) {
         this.sendAction('complete', stripeElement);
+      }else if(error) {
+        this.sendAction('error', error);
       }
     });
   }
