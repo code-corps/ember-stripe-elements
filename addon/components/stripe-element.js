@@ -4,8 +4,7 @@ const {
   Component,
   get,
   inject: { service },
-  set,
-  run
+  set
 } = Ember;
 
 export default Component.extend({
@@ -21,10 +20,7 @@ export default Component.extend({
 
   didInsertElement() {
     this._super(...arguments);
-    run.schedule('afterRender', this, this._createStripeElement);
-  },
 
-  _createStripeElement() {
     let elements = get(this, 'stripev3.elements')();
 
     // Fetch user options
@@ -70,12 +66,12 @@ export default Component.extend({
 
   setEventListeners() {
     let stripeElement = get(this, 'stripeElement');
-    stripeElement.on('blur',    () => this.sendAction('blur'));
-    stripeElement.on('focus',   () => this.sendAction('focus'));
+    stripeElement.on('blur',    (event) => this.sendAction('blur', stripeElement, event));
+    stripeElement.on('focus',   (event) => this.sendAction('focus', stripeElement, event));
     stripeElement.on('change',  (...args) => {
       let { error } = args[0];
       set(this, 'error', error);
-      this.sendAction('change', ...args);
+      this.sendAction('change', stripeElement, ...args);
     });
   }
 });
