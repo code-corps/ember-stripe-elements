@@ -69,9 +69,13 @@ export default Component.extend({
     stripeElement.on('blur',    (event) => this.sendAction('blur', stripeElement, event));
     stripeElement.on('focus',   (event) => this.sendAction('focus', stripeElement, event));
     stripeElement.on('change',  (...args) => {
-      let { error } = args[0];
+      let { error, complete } = args[0];
       set(this, 'error', error);
       this.sendAction('change', stripeElement, ...args);
+
+      if (complete === true) {
+        this.sendAction('complete', stripeElement);
+      }
     });
   }
 });
