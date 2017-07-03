@@ -23,6 +23,8 @@ A simple Ember wrapper for [Stripe Elements](https://stripe.com/docs/elements).
 - Initialize `Stripe` with your publishable key
 - Inject a `stripev3` service into your controllers so you can use:
   - [`stripe.createToken(element[, options])`](https://stripe.com/docs/elements/reference#stripe-create-token)
+  - [`stripe.createSource(element[, options])`](https://stripe.com/docs/elements/reference#stripe-create-source)
+  - [`stripe.retrieveSource(source)`](https://stripe.com/docs/elements/reference#stripe-retrieve-source)
   - [`stripe.elements([options])`](https://stripe.com/docs/elements/reference#stripe-elements), if for some reason you need to
 - Simple, configurable Ember components like `{{stripe-card}}` (demoed in the gif above)
 

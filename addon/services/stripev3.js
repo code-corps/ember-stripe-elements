@@ -17,7 +17,7 @@ export default Service.extend({
       throw new Ember.Error('StripeService: Missing Stripe key, please set `ENV.stripe.publishableKey` in config.environment.js');
     }
 
-    let { elements, createToken } = new Stripe(config.stripe.publishableKey);
-    setProperties(this, { elements, createToken });
+    let { elements, createToken, createSource, retrieveSource } = new Stripe(config.stripe.publishableKey);
+    setProperties(this, { elements, createToken, createSource, retrieveSource });
   }
 });
