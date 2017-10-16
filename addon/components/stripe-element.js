@@ -4,7 +4,8 @@ const {
   Component,
   get,
   inject: { service },
-  set
+  set,
+  computed,
 } = Ember;
 
 export default Component.extend({
@@ -17,11 +18,14 @@ export default Component.extend({
   type: null, // Set in components that extend from `stripe-element`
 
   stripev3: service(),
+  elements: computed(function() {
+    return get(this, 'stripev3.elements')();
+  }),
 
   didInsertElement() {
     this._super(...arguments);
 
-    let elements = get(this, 'stripev3.elements')();
+    let elements = get(this, 'elements');
 
     // Fetch user options
     let options = get(this, 'options');
