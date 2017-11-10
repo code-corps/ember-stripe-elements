@@ -25,6 +25,7 @@ A simple Ember wrapper for [Stripe Elements](https://stripe.com/docs/elements).
   - [`stripe.createToken(element[, options])`](https://stripe.com/docs/elements/reference#stripe-create-token)
   - [`stripe.createSource(element[, options])`](https://stripe.com/docs/elements/reference#stripe-create-source)
   - [`stripe.retrieveSource(source)`](https://stripe.com/docs/elements/reference#stripe-retrieve-source)
+  - [`stripe.paymentRequest(options)`](https://stripe.com/docs/stripe-js/reference#stripe-payment-request)
   - [`stripe.elements([options])`](https://stripe.com/docs/elements/reference#stripe-elements), if for some reason you need to
 - Simple, configurable Ember components like `{{stripe-card}}` (demoed in the gif above)
 
