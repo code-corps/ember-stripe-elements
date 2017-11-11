@@ -19,7 +19,7 @@ A simple Ember wrapper for [Stripe Elements](https://stripe.com/docs/elements).
 
 ## Features
 
-- Inject `<script src="https://js.stripe.com/v3/"></script>` into your application's `<head>` tag
+- Inject `<script src="https://js.stripe.com/v3/"></script>` into your application's `<body>`
 - Initialize `Stripe` with your publishable key
 - Inject a `stripev3` service into your controllers so you can use:
   - [`stripe.createToken(element[, options])`](https://stripe.com/docs/elements/reference#stripe-create-token)
@@ -45,6 +45,33 @@ You must set your [publishable key](https://support.stripe.com/questions/where-d
 ENV.stripe = {
   publishableKey: 'pk_thisIsATestKey'
 };
+```
+
+### Lazy loading
+
+You can configure Stripe.js to lazy load when you need it.
+
+```js
+ENV.stripe = {
+  lazyLoad: true
+};
+```
+
+When enabled, Stripe.js will not be loaded until you call the `load()` function on the service. It's best to call this function in a route's `beforeModel` hook.
+
+```js
+// subscription page route
+
+import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
+
+export default Route.extend({
+  stripe: service('stripev3'),
+
+  beforeModel() {
+    return this.get('stripe').load();
+  }
+});
 ```
 
 ## Components

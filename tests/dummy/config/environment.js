@@ -25,6 +25,7 @@ module.exports = function(environment) {
   };
 
   ENV.stripe = {
+    lazyLoad: true,
     publishableKey: process.env.STRIPE_PUBLISHABLE_KEY || 'pk_thisIsATestKey'
   };
 
