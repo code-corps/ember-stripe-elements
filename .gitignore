@@ -16,6 +16,13 @@
 npm-debug.log*
 testem.log
 
+# ember-try
+.node_modules.ember-try/
+bower.json.ember-try
+package.json.ember-try
+
+.DS_Store
 .env
 
 .DS_Store
+yarn-error.log

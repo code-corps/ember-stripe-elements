@@ -1,11 +1,6 @@
-import Ember from 'ember';
-
-const {
-  Controller,
-  get,
-  inject: { service },
-  set
-} = Ember;
+import Controller from '@ember/controller';
+import { inject as service } from '@ember/service';
+import { get, set } from '@ember/object';
 
 let style = {
   style: {
@@ -38,7 +33,7 @@ export default Controller.extend({
   options: {
     style
   },
-  
+
   actions: {
     submit(stripeElement) {
       let stripe = get(this, 'stripev3');

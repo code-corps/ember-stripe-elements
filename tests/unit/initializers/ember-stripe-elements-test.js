@@ -1,11 +1,11 @@
 /* global Stripe */
-import Ember from 'ember';
+import Application from '@ember/application';
+
+import { run } from '@ember/runloop';
 import { initialize } from 'dummy/initializers/ember-stripe-elements';
 import { module, test } from 'qunit';
 import destroyApp from '../../helpers/destroy-app';
 import sinon from 'sinon';
-
-const { Application, run } = Ember;
 
 var container, application;
 
