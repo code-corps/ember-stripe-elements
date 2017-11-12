@@ -1,13 +1,20 @@
 import EmberError from '@ember/error';
 import config from '../config/environment';
+import StripeMock from 'ember-stripe-elements/utils/stripe-mock';
 
 export function initialize() {
   const application = arguments[1] || arguments[0];
+  let stripeConfig = config.stripe || {};
 
-  application.register('config:ember-stripe-elements', config, { instantiate: false });
+  application.register('config:stripe', stripeConfig, { instantiate: false });
+  application.inject('service:stripev3', 'config', 'config:stripe');
 
-  if (!config.stripe && !config.stripe.publishableKey) {
-    throw new EmberError('StripeService: Missing Stripe key, please set `ENV.stripe.publishableKey` in config.environment.js');
+  if (!stripeConfig.publishableKey) {
+    throw new Ember.Error("stripev3: Missing Stripe key, please set `ENV.stripe.publishableKey` in config.environment.js");
+  }
+
+  if (typeof FastBoot !== 'undefined' || stripeConfig.mock) {
+    window.Stripe = StripeMock;
   }
 }
 
