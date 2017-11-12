@@ -45,8 +45,9 @@ export default Component.extend({
     // Fetch autofocus, set by user
     let autofocus = get(this, 'autofocus');
     let stripeElement = get(this, 'stripeElement');
-    if (autofocus) {
-      this.$('iframe')[0].onload = () => {
+    let $iframe = this.$('iframe')[0];
+    if (autofocus && $iframe) {
+      $iframe.onload = () => {
         stripeElement.focus();
       };
     }
