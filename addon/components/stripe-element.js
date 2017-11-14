@@ -7,7 +7,7 @@ export default Component.extend({
 
   autofocus: false,
   error: null,
-  options: [],
+  options: {},
   stripeElement: null,
   type: null, // Set in components that extend from `stripe-element`
 
