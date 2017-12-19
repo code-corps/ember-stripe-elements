@@ -10,7 +10,7 @@ export function initialize() {
   application.inject('service:stripev3', 'config', 'config:stripe');
 
   if (!stripeConfig.publishableKey) {
-    throw new Ember.Error("stripev3: Missing Stripe key, please set `ENV.stripe.publishableKey` in config.environment.js");
+    throw new EmberError("stripev3: Missing Stripe key, please set `ENV.stripe.publishableKey` in config.environment.js");
   }
 
   if (typeof FastBoot !== 'undefined' || stripeConfig.mock) {
