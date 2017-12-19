@@ -28,3 +28,14 @@ test('it renders', function(assert) {
 
   assert.equal(this.$().text().trim(), 'template block text');
 });
+
+test('yields out error message', function(assert) {
+  this.stripeError = { message: 'oops' };
+  this.render(hbs`
+    {{#stripe-card stripeError=stripeError as |stripeElement stripeError|}}
+      {{stripeError.message}}
+    {{/stripe-card}}
+  `);
+
+  assert.equal(this.$().text().trim(), 'oops');
+});

@@ -6,9 +6,9 @@ export default Component.extend({
   classNames: ['ember-stripe-element'],
 
   autofocus: false,
-  error: null,
   options: {},
   stripeElement: null,
+  stripeError: null,
   type: null, // Set in components that extend from `stripe-element`
 
   stripev3: service(),
@@ -68,15 +68,16 @@ export default Component.extend({
     stripeElement.on('blur',    (event) => this.sendAction('blur', stripeElement, event));
     stripeElement.on('focus',   (event) => this.sendAction('focus', stripeElement, event));
     stripeElement.on('change',  (...args) => {
-      let { error, complete } = args[0];
-      set(this, 'error', error);
+      let [{ complete, error: stripeError }] = args;
       this.sendAction('change', stripeElement, ...args);
 
       if (complete) {
         this.sendAction('complete', stripeElement);
-      } else if (error) {
-        this.sendAction('error', error);
+      } else if (stripeError) {
+        this.sendAction('error', stripeError);
       }
+
+      set(this, 'stripeError', stripeError);
     });
   }
 });

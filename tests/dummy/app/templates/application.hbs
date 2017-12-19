@@ -3,9 +3,9 @@
 </p>
 
 <div class="input-group">
-  {{#stripe-card autofocus=true options=cardOptions as |stripeElement error|}}
-    {{#if error}}
-      <p class="error">{{error.message}}</p>
+  {{#stripe-card autofocus=true options=cardOptions as |stripeElement stripeError|}}
+    {{#if stripeError}}
+      <p class="error">{{stripeError.message}}</p>
     {{/if}}
     <button {{action "submit" stripeElement}}>Submit</button>
     {{#if token}}
