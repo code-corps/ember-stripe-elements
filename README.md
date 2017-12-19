@@ -98,7 +98,7 @@ Every component will:
 The components bubble up all of [the JavaScript events that can be handled by the Stripe Element in `element.on()`](https://stripe.com/docs/elements/reference#element-on) from the Ember component using the following actions:
 
 - `blur`
-- `change` (also sets/unsets the `error` property on the component, which can be yielded with the block)
+- `change` (also sets/unsets the `stripeError` property on the component, which can be yielded with the block)
 - `focus`
 
 You could handle these actions yourself, for example:
@@ -119,14 +119,14 @@ This addon gives you components that match the different [Element types](https:/
 
 ### Block usage with `options`
 
-In addition to the simple usage above, like `{{stripe-card}}`, you can also yield to a block, which will yield both an `error` object and [the `stripeElement` itself](https://stripe.com/docs/elements/reference#the-element).
+In addition to the simple usage above, like `{{stripe-card}}`, you can also yield to a block, which will yield both an `stripeError` object and [the `stripeElement` itself](https://stripe.com/docs/elements/reference#the-element).
 
-For example, you can choose to render out the `error`, as below (runnable in our dummy app).
+For example, you can choose to render out the `stripeError`, as below (runnable in our dummy app).
 
 ```hbs
-{{#stripe-card options=options as |stripeElement error|}}
-  {{#if error}}
-    <p class="error">{{error.message}}</p>
+{{#stripe-card options=options as |stripeElement stripeError|}}
+  {{#if stripeError}}
+    <p class="error">{{stripeError.message}}</p>
   {{/if}}
   <button {{action "submit" stripeElement}}>Submit</button>
   {{#if token}}
