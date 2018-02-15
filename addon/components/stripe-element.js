@@ -19,8 +19,6 @@ export default Component.extend({
   didInsertElement() {
     this._super(...arguments);
 
-    let elements = get(this, 'stripev3.elements')();
-
     // Fetch user options
     let options = get(this, 'options');
 
@@ -28,7 +26,7 @@ export default Component.extend({
     let type = get(this, 'type');
 
     // `stripeElement` instead of `element` to distinguish from `this.element`
-    let stripeElement = elements.create(type, options);
+    let stripeElement = get(this, 'elements').create(type, options);
 
     // Mount the Stripe Element onto the mount point
     stripeElement.mount(this.element.querySelector('[role="mount-point"]'));
