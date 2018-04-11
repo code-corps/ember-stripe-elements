@@ -63,6 +63,7 @@ export default Component.extend({
 
   setEventListeners() {
     let stripeElement = get(this, 'stripeElement');
+    stripeElement.on('ready',   (event) => this.sendAction('ready', stripeElement, event));
     stripeElement.on('blur',    (event) => this.sendAction('blur', stripeElement, event));
     stripeElement.on('focus',   (event) => this.sendAction('focus', stripeElement, event));
     stripeElement.on('change',  (...args) => {
