@@ -24,8 +24,13 @@ export default Service.extend({
       this.configure();
     }
   },
-
-  load() {
+  
+  unload() {
+    this.set('didConfigure', false);
+    this.set('didLoad', false);
+  },
+  
+  load(params) {
     let lazyLoad = this.get('lazyLoad');
     let mock = this.get('mock');
     let shouldLoad = lazyLoad && !mock
@@ -33,19 +38,27 @@ export default Service.extend({
     let doLoad = shouldLoad ? loadScript("https://js.stripe.com/v3/") : resolve();
 
     return doLoad.then(() => {
-      this.configure();
+      this.configure(params);
       this.set('didLoad', true);
     });
   },
 
-  configure() {
+  configure(params) {
     let didConfigure = this.get('didConfigure');
 
     if (!didConfigure) {
       let publishableKey = this.get('publishableKey');
 
-      let { elements, createToken, createSource, retrieveSource, paymentRequest } = new Stripe(publishableKey);
-      setProperties(this, { elements, createToken, createSource, retrieveSource, paymentRequest });
+      var _ref = new Stripe(publishableKey, params);
+      
+      setProperties(this, { 
+        ref: _ref, //only used for debug
+        elements: _ref.elements, 
+        createToken: _ref.createToken, 
+        createSource: _ref.createSource, 
+        retrieveSource: _ref.retrieveSource, 
+        paymentRequest: _ref.paymentRequest, 
+      });
 
       this.set('didConfigure', true);
     }
