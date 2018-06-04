@@ -51,11 +51,5 @@ script:
 after_script:
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 
-deploy:
-  provider: script
-  skip_cleanup: true
-  script:
-    - npx travis-deploy-once "npx semantic-release"
-
-notifications:
-  email: false
+after_success:
+  - npm run travis-deploy-once "npm run semantic-release"
