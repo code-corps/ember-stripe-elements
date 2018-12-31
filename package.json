@@ -48,6 +48,7 @@
     "ember-sinon": "^3.0.0",
     "ember-sinon-qunit": "3.3.0",
     "ember-source": "~3.6.1",
+    "ember-try": "^1.1.0",
     "loader.js": "^4.2.3",
     "semantic-release": "^15.5.0",
     "travis-deploy-once": "^5.0.0"
