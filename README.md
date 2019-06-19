@@ -97,9 +97,12 @@ Every component will:
 
 The components bubble up all of [the JavaScript events that can be handled by the Stripe Element in `element.on()`](https://stripe.com/docs/elements/reference#element-on) from the Ember component using the following actions:
 
+- `ready`
 - `blur`
 - `change` (also sets/unsets the `stripeError` property on the component, which can be yielded with the block)
 - `focus`
+- `complete`
+- `error`
 
 You could handle these actions yourself, for example:
 
