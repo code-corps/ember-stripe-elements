@@ -20,6 +20,8 @@
     "build": "ember build",
     "start": "ember serve",
     "test": "ember try:each",
+    "lint:hbs": "ember-template-lint .",
+    "lint:js": "eslint .",
     "semantic-release": "semantic-release",
     "travis-deploy-once": "travis-deploy-once"
   },
@@ -39,6 +41,7 @@
     "ember-cli-qunit": "^4.1.1",
     "ember-cli-shims": "^1.2.0",
     "ember-cli-sri": "^2.1.0",
+    "ember-cli-template-lint": "^1.0.0-beta.3",
     "ember-cli-uglify": "^3.0.0",
     "ember-disable-prototype-extensions": "^1.1.2",
     "ember-export-application-global": "^2.0.0",
@@ -49,6 +52,8 @@
     "ember-sinon-qunit": "3.4.0",
     "ember-source": "~3.10.0",
     "ember-try": "^1.2.1",
+    "eslint-plugin-ember": "^6.7.0",
+    "eslint-plugin-node": "^9.1.0",
     "loader.js": "^4.2.3",
     "semantic-release": "^15.13.16",
     "travis-deploy-once": "^5.0.0"

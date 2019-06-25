@@ -9,6 +9,8 @@ module.exports = function() {
     getChannelURL('canary')
   ]).then((urls) => {
     return {
+      useYarn: true,
+      command: "ember test --query 'nolint&nojscs'",
       scenarios: [
         {
           name: 'ember-lts-2.18',
@@ -38,37 +40,21 @@ module.exports = function() {
             }
           }
         },
-        resolutions: {
-          'ember': 'release'
-        }
-      },
-      npm: {
-        devDependencies: {
-          'ember-source': null
-        }
-      }
-    },
-    {
-      name: 'ember-beta',
-      bower: {
-        dependencies: {
-          'ember': 'components/ember#beta'
+        {
+          name: 'ember-beta',
+          npm: {
+            devDependencies: {
+              'ember-source': urls[1]
+            }
+          }
         },
-        resolutions: {
-          'ember': 'beta'
-        }
-      },
-      npm: {
-        devDependencies: {
-          'ember-source': null
-        }
-      }
-    },
-    {
-      name: 'ember-canary',
-      bower: {
-        dependencies: {
-          'ember': 'components/ember#canary'
+        {
+          name: 'ember-canary',
+          npm: {
+            devDependencies: {
+              'ember-source': urls[2]
+            }
+          }
         },
         // The default `.travis.yml` runs this scenario via `npm test`,
         // not via `ember try`. It's still included here so that running
@@ -93,13 +79,7 @@ module.exports = function() {
             }
           }
         }
-      }
-    },
-    {
-      name: 'ember-default',
-      npm: {
-        devDependencies: {}
-      }
-    }
-  ]
+      ]
+    };
+  });
 };
