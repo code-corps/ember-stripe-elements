@@ -21,7 +21,7 @@
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
     "start": "ember serve",
-    "test": "ember try",
+    "test": "ember test  --query 'nolint&nojscs'",
     "test:all": "ember try:each",
     "semantic-release": "semantic-release",
     "travis-deploy-once": "travis-deploy-once"
