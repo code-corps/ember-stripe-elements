@@ -18,10 +18,11 @@
   "repository": "https://github.com/code-corps/ember-stripe-elements",
   "scripts": {
     "build": "ember build",
-    "start": "ember serve",
-    "test": "ember try:each",
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
+    "start": "ember serve",
+    "test": "ember try",
+    "test:all": "ember try:each",
     "semantic-release": "semantic-release",
     "travis-deploy-once": "travis-deploy-once"
   },
