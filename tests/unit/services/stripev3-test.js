@@ -24,7 +24,7 @@ test('makes Stripe.elements available on the service', function(assert) {
   let service = this.subject();
   let mockOptions = { locale: 'en' };
 
-  let elements = sinon.stub(service, 'elements', function(options) {
+  let elements = sinon.stub(service, 'elements').callsFake(function(options) {
     assert.deepEqual(options, mockOptions, 'called with mock options');
   });
 
@@ -38,7 +38,7 @@ test('makes Stripe.createToken available on the service', function(assert) {
   let service = this.subject();
   let mockOptions = { locale: 'en' };
 
-  let createToken = sinon.stub(service, 'createToken', function(options) {
+  let createToken = sinon.stub(service, 'createToken').callsFake(function(options) {
     assert.deepEqual(options, mockOptions, 'called with mock options');
   });
 
@@ -52,7 +52,7 @@ test('makes Stripe.createSource available on the service', function(assert) {
   let service = this.subject();
   let mockOptions = { locale: 'en' };
 
-  let createSource = sinon.stub(service, 'createSource', function(options) {
+  let createSource = sinon.stub(service, 'createSource').callsFake(function(options) {
     assert.deepEqual(options, mockOptions, 'called with mock options');
   });
 
@@ -66,7 +66,7 @@ test('makes Stripe.retrieveSource available on the service', function(assert) {
   let service = this.subject();
   let mockOptions = { locale: 'en' };
 
-  let retrieveSource = sinon.stub(service, 'retrieveSource', function(options) {
+  let retrieveSource = sinon.stub(service, 'retrieveSource').callsFake(function(options) {
     assert.deepEqual(options, mockOptions, 'called with mock options');
   });
 
@@ -80,7 +80,7 @@ test('makes Stripe.paymentRequest available on the service', function(assert) {
   let service = this.subject();
   let mockOptions = { locale: 'en' };
 
-  let paymentRequest = sinon.stub(service, 'paymentRequest', function(options) {
+  let paymentRequest = sinon.stub(service, 'paymentRequest').callsFake(function(options) {
     assert.deepEqual(options, mockOptions, 'called with mock options');
   });
 
