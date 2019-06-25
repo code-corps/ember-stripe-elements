@@ -49,6 +49,3 @@ script:
 
 after_script:
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
-
-after_success:
-  - npm run travis-deploy-once "npm run semantic-release"
