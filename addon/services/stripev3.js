@@ -1,9 +1,27 @@
 /* global Stripe */
 import Service from '@ember/service';
-import { setProperties } from '@ember/object';
+import { getProperties, setProperties } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import { resolve } from 'rsvp';
 import loadScript from 'ember-stripe-elements/utils/load-script';
+
+// As listed at https://stripe.com/docs/stripe-js/reference#the-stripe-object
+const STRIPE_FUNCTIONS = [
+  'elements',
+  'createToken',
+  'createSource',
+  'createPaymentMethod',
+  'retrieveSource',
+  'paymentRequest',
+	'redirectToCheckout',
+	'retrievePaymentIntent',
+	'handleCardPayment',
+	'handleCardAction',
+	'confirmPaymentIntent',
+	'handleCardSetup',
+	'retrieveSetupIntent',
+	'confirmSetupIntent'
+];
 
 export default Service.extend({
   config: null,
@@ -44,8 +62,10 @@ export default Service.extend({
     if (!didConfigure) {
       let publishableKey = this.get('publishableKey');
 
-      let { elements, createToken, createSource, retrieveSource, paymentRequest, createPaymentMethod } = new Stripe(publishableKey);
-      setProperties(this, { elements, createToken, createSource, retrieveSource, paymentRequest, createPaymentMethod });
+
+      let stripe = new Stripe(publishableKey);
+      let functions = getProperties(stripe, STRIPE_FUNCTIONS);
+      setProperties(this, functions);
 
       this.set('didConfigure', true);
     }
