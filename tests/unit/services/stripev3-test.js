@@ -59,6 +59,20 @@ module('Unit | Service | stripev3', function(hooks) {
     createSource.restore();
   });
 
+  test('makes Stripe.createPaymentMethod available on the service', function(assert) {
+    assert.expect(1);
+
+    let service = this.subject;
+    let mockOptions = { locale: 'en' };
+
+    let createPaymentMethod = sinon.stub(service, 'createPaymentMethod').callsFake(function(options) {
+      assert.deepEqual(options, mockOptions, 'called with mock options');
+    });
+
+    createPaymentMethod(mockOptions);
+    createPaymentMethod.restore();
+  });
+
   test('makes Stripe.retrieveSource available on the service', function(assert) {
     assert.expect(1);
 
