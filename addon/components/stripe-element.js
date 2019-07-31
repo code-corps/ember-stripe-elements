@@ -6,7 +6,7 @@ export default Component.extend({
   classNames: ['ember-stripe-element'],
 
   autofocus: false,
-  options: {},
+  options: computed(() => ({})),
   stripeElement: null,
   stripeError: null,
   type: null, // Set in components that extend from `stripe-element`

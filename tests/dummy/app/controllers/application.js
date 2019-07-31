@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import { get, set } from '@ember/object';
+import { computed, get, set } from '@ember/object';
 
 let style = {
   style: {
@@ -25,14 +25,14 @@ export default Controller.extend({
 
   token: null,
 
-  cardOptions: {
+  cardOptions: computed(() => ({
     hidePostalCode: true,
     style
-  },
+  })),
 
-  options: {
+  options: computed(() => ({
     style
-  },
+  })),
 
   actions: {
     submit(stripeElement) {
