@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import { computed, get, set } from '@ember/object';
+import { get, set } from '@ember/object';
 
 let style = {
   style: {
@@ -24,15 +24,14 @@ export default Controller.extend({
   stripev3: service(),
 
   token: null,
+  cardOptions: null,
+  options: null,
 
-  cardOptions: computed(() => ({
-    hidePostalCode: true,
-    style
-  })),
-
-  options: computed(() => ({
-    style
-  })),
+  init() {
+    this._super(...arguments);
+    set(this, 'cardOptions', { hidePostalCode: true, style });
+    set(this, 'options', { style });
+  },
 
   actions: {
     submit(stripeElement) {

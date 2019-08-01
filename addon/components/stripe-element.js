@@ -6,10 +6,15 @@ export default Component.extend({
   classNames: ['ember-stripe-element'],
 
   autofocus: false,
-  options: computed(() => ({})),
+  options: null,
   stripeElement: null,
   stripeError: null,
   type: null, // Set in components that extend from `stripe-element`
+
+  init() {
+    this._super(...arguments);
+    set(this, 'options', {});
+  },
 
   stripev3: service(),
   elements: computed(function() {
