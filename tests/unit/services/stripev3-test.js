@@ -59,6 +59,20 @@ module('Unit | Service | stripev3', function(hooks) {
     createSource.restore();
   });
 
+  test('makes Stripe.createPaymentMethod available on the service', function(assert) {
+    assert.expect(1);
+
+    let service = this.subject;
+    let mockOptions = { locale: 'en' };
+
+    let createPaymentMethod = sinon.stub(service, 'createPaymentMethod').callsFake(function(options) {
+      assert.deepEqual(options, mockOptions, 'called with mock options');
+    });
+
+    createPaymentMethod(mockOptions);
+    createPaymentMethod.restore();
+  });
+
   test('makes Stripe.retrieveSource available on the service', function(assert) {
     assert.expect(1);
 
@@ -86,5 +100,116 @@ module('Unit | Service | stripev3', function(hooks) {
     paymentRequest(mockOptions);
     paymentRequest.restore();
   });
-});
 
+  test('makes Stripe.redirectToCheckout available on the service', function(assert) {
+    assert.expect(1);
+
+    let service = this.subject;
+    let mockOptions = { locale: 'en' };
+
+    let redirectToCheckout = sinon.stub(service, 'redirectToCheckout').callsFake(function(options) {
+      assert.deepEqual(options, mockOptions, 'called with mock options');
+    });
+
+    redirectToCheckout(mockOptions);
+    redirectToCheckout.restore();
+  });
+
+  test('makes Stripe.retrievePaymentIntent available on the service', function(assert) {
+    assert.expect(1);
+
+    let service = this.subject;
+    let mockOptions = { locale: 'en' };
+
+    let retrievePaymentIntent = sinon.stub(service, 'retrievePaymentIntent').callsFake(function(options) {
+      assert.deepEqual(options, mockOptions, 'called with mock options');
+    });
+
+    retrievePaymentIntent(mockOptions);
+    retrievePaymentIntent.restore();
+  });
+
+  test('makes Stripe.handleCardPayment available on the service', function(assert) {
+    assert.expect(1);
+
+    let service = this.subject;
+    let mockOptions = { locale: 'en' };
+
+    let handleCardPayment = sinon.stub(service, 'handleCardPayment').callsFake(function(options) {
+      assert.deepEqual(options, mockOptions, 'called with mock options');
+    });
+
+    handleCardPayment(mockOptions);
+    handleCardPayment.restore();
+  });
+
+  test('makes Stripe.handleCardAction available on the service', function(assert) {
+    assert.expect(1);
+
+    let service = this.subject;
+    let mockOptions = { locale: 'en' };
+
+    let handleCardAction = sinon.stub(service, 'handleCardAction').callsFake(function(options) {
+      assert.deepEqual(options, mockOptions, 'called with mock options');
+    });
+
+    handleCardAction(mockOptions);
+    handleCardAction.restore();
+  });
+
+  test('makes Stripe.confirmPaymentIntent available on the service', function(assert) {
+    assert.expect(1);
+
+    let service = this.subject;
+    let mockOptions = { locale: 'en' };
+
+    let confirmPaymentIntent = sinon.stub(service, 'confirmPaymentIntent').callsFake(function(options) {
+      assert.deepEqual(options, mockOptions, 'called with mock options');
+    });
+
+    confirmPaymentIntent(mockOptions);
+    confirmPaymentIntent.restore();
+  });
+
+  test('makes Stripe.handleCardSetup available on the service', function(assert) {
+    assert.expect(1);
+
+    let service = this.subject;
+    let mockOptions = { locale: 'en' };
+
+    let handleCardSetup = sinon.stub(service, 'handleCardSetup').callsFake(function(options) {
+      assert.deepEqual(options, mockOptions, 'called with mock options');
+    });
+
+    handleCardSetup(mockOptions);
+    handleCardSetup.restore();
+  });
+
+  test('makes Stripe.retrieveSetupIntent available on the service', function(assert) {
+    assert.expect(1);
+
+    let service = this.subject;
+    let mockOptions = { locale: 'en' };
+
+    let retrieveSetupIntent = sinon.stub(service, 'retrieveSetupIntent').callsFake(function(options) {
+      assert.deepEqual(options, mockOptions, 'called with mock options');
+    });
+
+    retrieveSetupIntent(mockOptions);
+    retrieveSetupIntent.restore();
+  });
+
+  test('makes Stripe.confirmSetupIntent available on the service', function(assert) {
+    assert.expect(1);
+
+    let service = this.subject;
+    let mockOptions = { locale: 'en' };
+
+    let confirmSetupIntent = sinon.stub(service, 'confirmSetupIntent').callsFake(function(options) {
+      assert.deepEqual(options, mockOptions, 'called with mock options');
+    });
+
+    confirmSetupIntent(mockOptions);
+    confirmSetupIntent.restore();
+  });
+});
