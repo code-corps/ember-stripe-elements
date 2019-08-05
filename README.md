@@ -62,6 +62,24 @@ ENV.stripe = {
 };
 ```
 
+### Mocking the Stripe API
+
+You can configure the Stripe API to be mocked instead of loaded from `https://js.stripe.com/v3/`. This is useful for testing. 
+
+```js
+ENV.stripe = {
+  mock: true
+};
+```
+
+When enabled, a [mock Stripe object](https://github.com/code-corps/ember-stripe-elements/blob/develop/addon/utils/stripe-mock.js) will be assigned to `window.Stripe` when your app is initialized. 
+
+When using the Stripe mock in tests you will likely need to override the mock's methods according to the needs of your test like so:
+
+```js
+this.owner.lookup('service:stripev3').createToken = () => ({ token: { id: 'token' } });
+```
+
 ### Lazy loading
 
 You can configure Stripe.js to lazy load when you need it.
