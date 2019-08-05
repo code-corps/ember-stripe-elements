@@ -212,4 +212,28 @@ module('Unit | Service | stripev3', function(hooks) {
     confirmSetupIntent(mockOptions);
     confirmSetupIntent.restore();
   });
+
+  test('it throws an error if config.stripe.publishableKey is not set', function(assert) {
+    assert.expectAssertion(() => {
+      this.owner.factoryFor('service:stripev3').create({
+        config: {
+          mock: true,
+          publishableKey: null
+        }
+      });
+    }, /Missing Stripe key/);
+  });
+
+  test('it does not throw when publishableKey is provided by load method', async function(assert) {
+    this.subject = this.owner.factoryFor('service:stripev3').create({
+      config: {
+        mock: true,
+        lazyLoad: true,
+        publishableKey: null
+      }
+    });
+
+    await this.subject.load('some-key');
+    assert.ok(this.subject.get('didConfigure'), 'should have configured')
+  });
 });
