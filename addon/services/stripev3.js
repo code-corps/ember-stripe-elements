@@ -62,6 +62,9 @@ export default Service.extend({
     if (!didConfigure) {
       let publishableKey = this.get('publishableKey');
 
+      if (!publishableKey) {
+        throw new Error("stripev3: Missing Stripe key, please set `ENV.stripe.publishableKey` in config.environment.js");
+      }
 
       let stripe = new Stripe(publishableKey);
       let functions = getProperties(stripe, STRIPE_FUNCTIONS);
