@@ -36,9 +36,8 @@ export default Service.extend({
     this._super(...arguments);
 
     let lazyLoad = this.get('lazyLoad');
-    let mock = this.get('mock');
 
-    if (!lazyLoad || mock) {
+    if (!lazyLoad) {
       this.configure();
     }
   },
