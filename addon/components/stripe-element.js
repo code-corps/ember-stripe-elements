@@ -17,8 +17,15 @@ export default Component.extend({
   },
 
   stripev3: service(),
-  elements: computed(function() {
-    return get(this, 'stripev3.elements')();
+
+  elements: computed({
+    get() {
+      return get(this, 'stripev3.elements')();
+    },
+
+    set(key, value) {
+      return value;
+    }
   }),
 
   didInsertElement() {
