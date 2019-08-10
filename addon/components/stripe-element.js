@@ -11,11 +11,6 @@ export default Component.extend({
   stripeError: null,
   type: null, // Set in components that extend from `stripe-element`
 
-  init() {
-    this._super(...arguments);
-    set(this, 'options', {});
-  },
-
   stripev3: service(),
 
   elements: computed({
@@ -32,7 +27,7 @@ export default Component.extend({
     this._super(...arguments);
 
     // Fetch user options
-    let options = get(this, 'options');
+    let options = get(this, 'options') || {};
 
     // Fetch `type` set by child component
     let type = get(this, 'type');
@@ -65,7 +60,8 @@ export default Component.extend({
 
   didUpdateAttrs() {
     this._super(...arguments);
-    get(this, 'stripeElement').update(get(this, 'options'));
+    let options = get(this, 'options') || {};
+    get(this, 'stripeElement').update(options);
   },
 
   willDestroyElement() {
