@@ -68,21 +68,45 @@ export default Component.extend({
 
   setEventListeners() {
     let stripeElement = get(this, 'stripeElement');
-    stripeElement.on('ready', (event) => this.ready(stripeElement, event));
-    stripeElement.on('blur', (event) => this.blur(stripeElement, event));
-    stripeElement.on('focus', (event) => this.focus(stripeElement, event));
+
+    stripeElement.on('ready', (event) => {
+      this._invokeAction('ready', stripeElement, event)
+    });
+
+    stripeElement.on('blur', (event) => {
+      this._invokeAction('blur', stripeElement, event)
+    });
+
+    stripeElement.on('focus', (event) => {
+      this._invokeAction('focus', stripeElement, event)
+    });
+
     stripeElement.on('change', (...args) => {
+      if (this.isDestroying || this.isDestroyed) {
+        return;
+      }
+
       let [{ complete, error: stripeError }] = args;
       this.change(stripeElement, ...args);
 
       if (complete) {
-        this.complete(stripeElement);
+        this._invokeAction('complete', stripeElement)
       } else if (stripeError) {
-        this.error(stripeError);
+        this._invokeAction('error', stripeError)
       }
 
       set(this, 'stripeError', stripeError);
     });
+  },
+
+  _invokeAction(method, ...args) {
+    if (this.isDestroying || this.isDestroyed) {
+      return;
+    }
+
+    if (typeof this[method] === 'function') {
+      this[method](...args)
+    }
   },
 
   ready() { },
