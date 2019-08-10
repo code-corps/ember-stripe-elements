@@ -56,6 +56,7 @@ $ ember install ember-stripe-elements
 
 You must set your [publishable key](https://support.stripe.com/questions/where-do-i-find-my-api-keys) in `config/environment.js`.
 
+
 ```js
 ENV.stripe = {
   publishableKey: 'pk_thisIsATestKey'
@@ -105,6 +106,12 @@ export default Route.extend({
     return this.get('stripe').load();
   }
 });
+```
+
+You can also pass `publishableKey` to the `load` function.
+
+```js
+this.get('stripe').load('pk_thisIsATestKey');
 ```
 
 ## Components
