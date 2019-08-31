@@ -21,12 +21,21 @@ A simple Ember wrapper for [Stripe Elements](https://stripe.com/docs/elements).
 
 - Inject `<script src="https://js.stripe.com/v3/"></script>` into your application's `<body>`
 - Initialize `Stripe` with your publishable key
-- Inject a `stripev3` service into your controllers so you can use:
-  - [`stripe.createToken(element[, options])`](https://stripe.com/docs/elements/reference#stripe-create-token)
-  - [`stripe.createSource(element[, options])`](https://stripe.com/docs/elements/reference#stripe-create-source)
-  - [`stripe.retrieveSource(source)`](https://stripe.com/docs/elements/reference#stripe-retrieve-source)
-  - [`stripe.paymentRequest(options)`](https://stripe.com/docs/stripe-js/reference#stripe-payment-request)
-  - [`stripe.elements([options])`](https://stripe.com/docs/elements/reference#stripe-elements), if for some reason you need to
+- Inject a `stripev3` service into your controllers so you can use the functions usually available on the `stripe` object (see https://stripe.com/docs/stripe-js/reference#the-stripe-object):
+  - `stripe.elements()`
+  - `stripe.createToken()`
+  - `stripe.createSource()`
+  - `stripe.createPaymentMethod()`
+  - `stripe.retrieveSource()`
+  - `stripe.paymentRequest()`
+  - `stripe.redirectToCheckout()`
+  - `stripe.retrievePaymentIntent()`
+  - `stripe.handleCardPayment()`
+  - `stripe.handleCardAction()`
+  - `stripe.confirmPaymentIntent()`
+  - `stripe.handleCardSetup()`
+  - `stripe.retrieveSetupIntent()`
+  - `stripe.confirmSetupIntent()`
 - Simple, configurable Ember components like `{{stripe-card}}` (demoed in the gif above)
 
 ## Installation
@@ -35,16 +44,41 @@ A simple Ember wrapper for [Stripe Elements](https://stripe.com/docs/elements).
 $ ember install ember-stripe-elements
 ```
 
+## Compatibility
+
+* Ember.js v2.18 or above
+* Ember CLI v2.13 or above
+* Node.js v8 or above
+
 ## Configuration
 
 ### Stripe Publishable Key
 
 You must set your [publishable key](https://support.stripe.com/questions/where-do-i-find-my-api-keys) in `config/environment.js`.
 
+
 ```js
 ENV.stripe = {
   publishableKey: 'pk_thisIsATestKey'
 };
+```
+
+### Mocking the Stripe API
+
+You can configure the Stripe API to be mocked instead of loaded from `https://js.stripe.com/v3/`. This is useful for testing. 
+
+```js
+ENV.stripe = {
+  mock: true
+};
+```
+
+When enabled, a [mock Stripe object](https://github.com/code-corps/ember-stripe-elements/blob/develop/addon/utils/stripe-mock.js) will be assigned to `window.Stripe` when your app is initialized. 
+
+When using the Stripe mock in tests you will likely need to override the mock's methods according to the needs of your test like so:
+
+```js
+this.owner.lookup('service:stripev3').createToken = () => ({ token: { id: 'token' } });
 ```
 
 ### Lazy loading
@@ -74,6 +108,12 @@ export default Route.extend({
 });
 ```
 
+You can also pass `publishableKey` to the `load` function.
+
+```js
+this.get('stripe').load('pk_thisIsATestKey');
+```
+
 ## Components
 
 ### Basics
@@ -97,9 +137,12 @@ Every component will:
 
 The components bubble up all of [the JavaScript events that can be handled by the Stripe Element in `element.on()`](https://stripe.com/docs/elements/reference#element-on) from the Ember component using the following actions:
 
+- `ready`
 - `blur`
 - `change` (also sets/unsets the `stripeError` property on the component, which can be yielded with the block)
 - `focus`
+- `complete`
+- `error`
 
 You could handle these actions yourself, for example:
 

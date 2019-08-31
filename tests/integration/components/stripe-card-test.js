@@ -1,41 +1,43 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import { render, find } from '@ember/test-helpers';
 import StripeMock from 'ember-stripe-elements/utils/stripe-mock';
 import env from 'dummy/config/environment';
+import StripeService from 'dummy/services/stripev3';
 
-moduleForComponent('stripe-card', 'Integration | Component | stripe card', {
-  integration: true,
-  beforeEach() {
+module('Integration | Component | stripe-card', function(hooks) {
+  setupRenderingTest(hooks);
+
+  hooks.beforeEach(function() {
     window.Stripe = StripeMock;
-
-    let config = {
+    const config = {
       mock: true,
-      publishableKey: env.stripe.publishableKey
+      publishableKey: env.stripe.publishableKey,
     };
 
-    this.register('config:stripe', config, { instantiate: false });
-    this.inject.service('stripev3', 'config', 'config:stripe');
-  }
-});
+    this.owner.register(
+      'service:stripev3',
+      StripeService.create({ config }),
+      { instantiate: false }
+    );
+  });
 
-test('it renders', function(assert) {
-  // Template block usage:
-  this.render(hbs`
-    {{#stripe-card}}
-      template block text
-    {{/stripe-card}}
-  `);
+  test('it renders', async function(assert) {
+    await render(hbs`{{stripe-card}}`);
 
-  assert.equal(this.$().text().trim(), 'template block text');
-});
+    assert.ok(find('.ember-stripe-element.ember-stripe-card'));
+    assert.ok(find('[role="mount-point"]'));
+  });
 
-test('yields out error message', function(assert) {
-  this.stripeError = { message: 'oops' };
-  this.render(hbs`
-    {{#stripe-card stripeError=stripeError as |stripeElement stripeError|}}
-      {{stripeError.message}}
-    {{/stripe-card}}
-  `);
+  test('yields out error message', async function(assert) {
+    this.stripeError = { message: 'oops' };
+    await this.render(hbs`
+      {{#stripe-card stripeError=stripeError as |stripeElement stripeError|}}
+        {{stripeError.message}}
+      {{/stripe-card}}
+    `);
 
-  assert.equal(this.$().text().trim(), 'oops');
+    assert.equal(this.element.textContent.trim(), 'oops');
+  });
 });

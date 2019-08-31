@@ -24,14 +24,13 @@ export default Controller.extend({
   stripev3: service(),
 
   token: null,
+  cardOptions: null,
+  options: null,
 
-  cardOptions: {
-    hidePostalCode: true,
-    style
-  },
-
-  options: {
-    style
+  init() {
+    this._super(...arguments);
+    set(this, 'cardOptions', { hidePostalCode: true, style });
+    set(this, 'options', { style });
   },
 
   actions: {

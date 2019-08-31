@@ -1,6 +1,6 @@
 {
   "name": "ember-stripe-elements",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "A simple Ember wrapper for Stripe Elements.",
   "keywords": [
     "credit card",
@@ -18,39 +18,50 @@
   "repository": "https://github.com/code-corps/ember-stripe-elements",
   "scripts": {
     "build": "ember build",
+    "lint:hbs": "ember-template-lint .",
+    "lint:js": "eslint .",
     "start": "ember serve",
-    "test": "ember try:each"
+    "test": "ember test  --query 'nolint&nojscs'",
+    "test:all": "ember try:each",
+    "semantic-release": "semantic-release",
+    "travis-deploy-once": "travis-deploy-once"
   },
   "dependencies": {
-    "ember-cli-babel": "^6.6.0",
-    "ember-cli-htmlbars": "^2.0.1",
-    "ember-cli-htmlbars-inline-precompile": "^1.0.0"
+    "ember-cli-babel": "^7.7.3",
+    "ember-cli-htmlbars": "^3.0.1",
+    "ember-cli-htmlbars-inline-precompile": "^2.1.0"
   },
   "devDependencies": {
-    "broccoli-asset-rev": "^2.4.5",
-    "coveralls": "^2.12.0",
-    "ember-ajax": "^3.0.0",
-    "ember-cli": "~2.17.1",
-    "ember-cli-code-coverage": "0.3.11",
-    "ember-cli-dependency-checker": "^2.0.0",
-    "ember-cli-eslint": "^4.2.2",
-    "ember-cli-inject-live-reload": "^1.4.1",
+    "@ember/optional-features": "^0.7.0",
+    "broccoli-asset-rev": "^3.0.0",
+    "coveralls": "^3.0.4",
+    "ember-cli": "~3.10.1",
+    "ember-cli-code-coverage": "0.4.2",
+    "ember-cli-dependency-checker": "^3.1.0",
+    "ember-cli-eslint": "^5.1.0",
+    "ember-cli-inject-live-reload": "^2.0.1",
     "ember-cli-qunit": "^4.1.1",
     "ember-cli-shims": "^1.2.0",
     "ember-cli-sri": "^2.1.0",
-    "ember-cli-uglify": "^2.0.0",
+    "ember-cli-template-lint": "^1.0.0-beta.3",
+    "ember-cli-uglify": "^3.0.0",
     "ember-disable-prototype-extensions": "^1.1.2",
     "ember-export-application-global": "^2.0.0",
-    "ember-load-initializers": "^1.0.0",
-    "ember-qunit-assert-helpers": "^0.2.1",
-    "ember-resolver": "^4.0.0",
-    "ember-sinon": "^1.0.1",
-    "ember-sinon-qunit": "1.4.1",
-    "ember-source": "~2.17.0",
-    "loader.js": "^4.2.3"
+    "ember-load-initializers": "^2.0.0",
+    "ember-qunit-assert-helpers": "^0.2.2",
+    "ember-resolver": "^5.1.3",
+    "ember-sinon": "^4.0.0",
+    "ember-sinon-qunit": "3.4.0",
+    "ember-source": "~3.10.0",
+    "ember-try": "^1.2.1",
+    "eslint-plugin-ember": "^6.7.0",
+    "eslint-plugin-node": "^9.1.0",
+    "loader.js": "^4.2.3",
+    "semantic-release": "^15.13.16",
+    "travis-deploy-once": "^5.0.0"
   },
   "engines": {
-    "node": "^4.5 || 6.* || >= 7.*"
+    "node": "8.* || >= 10.*"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"

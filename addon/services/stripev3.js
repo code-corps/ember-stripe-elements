@@ -1,9 +1,28 @@
 /* global Stripe */
 import Service from '@ember/service';
-import { setProperties } from '@ember/object';
+import { getProperties, setProperties } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
 import { resolve } from 'rsvp';
 import loadScript from 'ember-stripe-elements/utils/load-script';
+import EmberError from '@ember/error';
+
+// As listed at https://stripe.com/docs/stripe-js/reference#the-stripe-object
+const STRIPE_FUNCTIONS = [
+  'elements',
+  'createToken',
+  'createSource',
+  'createPaymentMethod',
+  'retrieveSource',
+  'paymentRequest',
+	'redirectToCheckout',
+	'retrievePaymentIntent',
+	'handleCardPayment',
+	'handleCardAction',
+	'confirmPaymentIntent',
+	'handleCardSetup',
+	'retrieveSetupIntent',
+	'confirmSetupIntent'
+];
 
 export default Service.extend({
   config: null,
@@ -12,25 +31,29 @@ export default Service.extend({
 
   lazyLoad: readOnly('config.lazyLoad'),
   mock: readOnly('config.mock'),
-  publishableKey: readOnly('config.publishableKey'),
+  publishableKey: null,
 
   init() {
     this._super(...arguments);
+    this.set('publishableKey', this.get('config.publishableKey'))
 
     let lazyLoad = this.get('lazyLoad');
-    let mock = this.get('mock');
 
-    if (!lazyLoad || mock) {
+    if (!lazyLoad) {
       this.configure();
     }
   },
-  
+ 
   unload() {
     this.set('didConfigure', false);
     this.set('didLoad', false);
   },
   
-  load(params) {
+  load(publishableKey = null, params = null) {
+    if (publishableKey) {
+      this.set('publishableKey', publishableKey);
+    }
+
     let lazyLoad = this.get('lazyLoad');
     let mock = this.get('mock');
     let shouldLoad = lazyLoad && !mock
@@ -49,16 +72,13 @@ export default Service.extend({
     if (!didConfigure) {
       let publishableKey = this.get('publishableKey');
 
-      var _ref = new Stripe(publishableKey, params);
-      
-      setProperties(this, { 
-        ref: _ref, //only used for debug
-        elements: _ref.elements, 
-        createToken: _ref.createToken, 
-        createSource: _ref.createSource, 
-        retrieveSource: _ref.retrieveSource, 
-        paymentRequest: _ref.paymentRequest, 
-      });
+      if (!publishableKey) {
+        throw new EmberError("stripev3: Missing Stripe key, please set `ENV.stripe.publishableKey` in config.environment.js");
+      }
+
+      let stripe = new Stripe(publishableKey, params);
+      let functions = getProperties(stripe, STRIPE_FUNCTIONS);
+      setProperties(this, functions);
 
       this.set('didConfigure', true);
     }
