@@ -154,10 +154,10 @@ You could handle these actions yourself, for example:
 
 This addon gives you components that match the different [Element types](https://stripe.com/docs/elements/reference#element-types):
 
-Stripe recommend using the their `card` element - a flexible single-line input that collects all necessary card details.
+Stripe recommends using the their `card` element - a flexible single-line input that collects all necessary card details.
 The `{{stripe-card}}` component provides this input.
 
-Additionally Stripe provide the following elements, which you can use to build your own form to collect card details:
+Additionally Stripe provides the following elements, which you can use to build your own form to collect card details:
 
 - `cardNumber`: the card number.
 - `cardExpiry`: the card's expiration date.
