@@ -65,7 +65,7 @@ ENV.stripe = {
 
 ### Mocking the Stripe API
 
-You can configure the Stripe API to be mocked instead of loaded from `https://js.stripe.com/v3/`. This is useful for testing. 
+You can configure the Stripe API to be mocked instead of loaded from `https://js.stripe.com/v3/`. This is useful for testing.
 
 ```js
 ENV.stripe = {
@@ -73,7 +73,7 @@ ENV.stripe = {
 };
 ```
 
-When enabled, a [mock Stripe object](https://github.com/code-corps/ember-stripe-elements/blob/develop/addon/utils/stripe-mock.js) will be assigned to `window.Stripe` when your app is initialized. 
+When enabled, a [mock Stripe object](https://github.com/code-corps/ember-stripe-elements/blob/develop/addon/utils/stripe-mock.js) will be assigned to `window.Stripe` when your app is initialized.
 
 When using the Stripe mock in tests you will likely need to override the mock's methods according to the needs of your test like so:
 
@@ -154,13 +154,54 @@ You could handle these actions yourself, for example:
 
 This addon gives you components that match the different [Element types](https://stripe.com/docs/elements/reference#element-types):
 
-- `{{stripe-card}}` - `card` (recommended) A flexible single-line input that collects all necessary card details.
-- `{{stripe-card-number}}` - `cardNumber` The card number.
-- `{{stripe-card-expiry}}` - `cardExpiry` The card's expiration date.
-- `{{stripe-card-cvc}}` - `cardCvc` The card's CVC number.
-- `{{stripe-postal-code}}` - `postalCode` the ZIP/postal code.
+Stripe recommends using the their `card` element - a flexible single-line input that collects all necessary card details.
+The `{{stripe-card}}` component provides this input.
 
-### Block usage with `options`
+Additionally Stripe provides the following elements, which you can use to build your own form to collect card details:
+
+- `cardNumber`: the card number.
+- `cardExpiry`: the card's expiration date.
+- `cardCvc`: the card's CVC number.
+- `postalCode`: the ZIP/postal code.
+
+These are provided via our `{{stripe-elements}}` contextual component, which yields sub-components for each element type:
+
+```hbs
+{{#stripe-elements as |elements|}}
+  {{elements.cardNumber}}
+  {{elements.cardExpiry}}
+  {{elements.cardCvc}}
+  {{elements.postalCode}}
+{{/stripe-elements}}
+```
+
+> The `{{stripe-elements}}` component is a tagless component, so does not have any classes etc on it.
+
+### Elements Options
+
+The `{{stripe-elements}}` contextual component ensures all the individual elements are created from
+the same [Stripe Elements object](https://stripe.com/docs/stripe-js/reference#the-elements-object).
+
+If you want to pass options to the Stripe Elements object, pass them to the `{{stripe-elements}}`
+contextual component. For example, when using the single-line `card` element:
+
+```hbs
+{{#stripe-elements options=elementOptions as |elements|}}
+  {{elements.card options=cardOptions}}
+{{/stripe-elements}}
+```
+
+Or when creating your own form:
+
+```hbs
+{{#stripe-elements options=elementsOptions as |elements|}}
+  {{elements.cardNumber options=cardNumberOptions}}
+  {{elements.cardExpiry}}
+  {{elements.cardCvc}}
+{{/stripe-elements}}
+```
+
+### Block usage with element `options`
 
 In addition to the simple usage above, like `{{stripe-card}}`, you can also yield to a block, which will yield both an `stripeError` object and [the `stripeElement` itself](https://stripe.com/docs/elements/reference#the-element).
 

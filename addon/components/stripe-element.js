@@ -12,8 +12,15 @@ export default Component.extend({
   type: null, // Set in components that extend from `stripe-element`
 
   stripev3: service(),
-  elements: computed(function() {
-    return get(this, 'stripev3.elements')();
+
+  elements: computed({
+    get() {
+      return get(this, 'stripev3.elements')();
+    },
+
+    set(key, value) {
+      return value;
+    }
   }),
 
   didInsertElement() {
