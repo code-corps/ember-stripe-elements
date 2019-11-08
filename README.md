@@ -34,6 +34,7 @@ A simple Ember wrapper for [Stripe Elements](https://stripe.com/docs/elements).
   - `stripe.handleCardAction()`
   - `stripe.confirmPaymentIntent()`
   - `stripe.handleCardSetup()`
+  - `stripe.confirmCardSetup()`
   - `stripe.retrieveSetupIntent()`
   - `stripe.confirmSetupIntent()`
 - Simple, configurable Ember components like `{{stripe-card}}` (demoed in the gif above)
