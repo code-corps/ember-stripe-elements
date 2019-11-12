@@ -24,6 +24,7 @@ StripeMock.prototype.handleCardPayment = function() {};
 StripeMock.prototype.handleCardAction = function() {};
 StripeMock.prototype.confirmPaymentIntent = function() {};
 StripeMock.prototype.handleCardSetup = function() {};
+StripeMock.prototype.confirmCardSetup = function() {};
 StripeMock.prototype.retrieveSetupIntent = function() {};
 StripeMock.prototype.confirmSetupIntent = function() {};
 

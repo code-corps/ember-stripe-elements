@@ -19,7 +19,8 @@ const STRIPE_FUNCTIONS = [
 	'handleCardPayment',
 	'handleCardAction',
 	'confirmPaymentIntent',
-	'handleCardSetup',
+  'handleCardSetup',
+  'confirmCardSetup',
 	'retrieveSetupIntent',
 	'confirmSetupIntent'
 ];

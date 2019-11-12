@@ -185,6 +185,20 @@ module('Unit | Service | stripev3', function(hooks) {
     handleCardSetup.restore();
   });
 
+  test('makes Stripe.confirmCardSetup available on the service', function(assert) {
+    assert.expect(1);
+
+    let service = this.subject;
+    let mockOptions = { locale: 'en' };
+
+    let confirmCardSetup = sinon.stub(service, 'confirmCardSetup').callsFake(function(options) {
+      assert.deepEqual(options, mockOptions, 'called with mock options');
+    });
+
+    confirmCardSetup(mockOptions);
+    confirmCardSetup.restore();
+  });
+
   test('makes Stripe.retrieveSetupIntent available on the service', function(assert) {
     assert.expect(1);
 
