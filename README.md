@@ -15,6 +15,8 @@
 
 <h1>ember-stripe-elements</h1>
 
+# This addon is currently unmaintained and has been superseded by [@adopted-ember-addons/ember-stripe-elements](https://github.com/adopted-ember-addons/ember-stripe-elements) 
+
 A simple Ember wrapper for [Stripe Elements](https://stripe.com/docs/elements).
 
 ## Features
