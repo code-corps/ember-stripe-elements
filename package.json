@@ -57,7 +57,7 @@
     "eslint-plugin-ember": "^6.7.0",
     "eslint-plugin-node": "^9.1.0",
     "loader.js": "^4.2.3",
-    "semantic-release": "^15.13.16",
+    "semantic-release": "^19.0.3",
     "travis-deploy-once": "^5.0.0"
   },
   "engines": {
