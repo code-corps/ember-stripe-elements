@@ -28,3 +28,7 @@ package.json.ember-try
 
 .DS_Store
 yarn-error.log
+
+#Eclipse
+.settings
+.project

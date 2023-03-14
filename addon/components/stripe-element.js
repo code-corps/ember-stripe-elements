@@ -50,7 +50,7 @@ export default Component.extend({
     // Fetch autofocus, set by user
     let autofocus = get(this, 'autofocus');
     let stripeElement = get(this, 'stripeElement');
-    let iframe = this.element.querySelector('iframe')
+    let iframe = this.element.querySelector('iframe');
     if (autofocus && iframe) {
       iframe.onload = () => {
         stripeElement.focus();
@@ -70,6 +70,25 @@ export default Component.extend({
   },
 
   setEventListeners() {
+    let stripeElement = get(this, 'stripeElement');
+    stripeElement.on('ready',   (event) => this.sendAction('ready', stripeElement, event));
+    stripeElement.on('blur',    (event) => this.sendAction('blur', stripeElement, event));
+    stripeElement.on('focus',   (event) => this.sendAction('focus', stripeElement, event));
+    stripeElement.on('change',  (...args) => {
+      let [{ complete, error: stripeError }] = args;
+      this.sendAction('change', stripeElement, ...args);
+
+      if (complete) {
+        this.sendAction('complete', stripeElement);
+      } else if (stripeError) {
+        this.sendAction('error', stripeError);
+      }
+
+      set(this, 'stripeError', stripeError);
+    });
+  }
+
+  /*setEventListeners() {
     let stripeElement = get(this, 'stripeElement');
 
     stripeElement.on('ready', (event) => {
@@ -117,5 +136,5 @@ export default Component.extend({
   focus() { },
   change() { },
   complete() { },
-  error() { }
+  error() { }*/
 });
